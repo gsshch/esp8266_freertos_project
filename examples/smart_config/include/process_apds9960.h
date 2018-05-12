@@ -1,0 +1,13 @@
+/*
+ * process_apds9960.h
+ *
+ *  Created on: 2018年5月12日
+ *      Author: guo
+ */
+
+#ifndef EXAMPLES_SMART_CONFIG_USER_PROCESS_APDS9960_H_
+#define EXAMPLES_SMART_CONFIG_USER_PROCESS_APDS9960_H_
+
+
+
+#endif /* EXAMPLES_SMART_CONFIG_USER_PROCESS_APDS9960_H_ */

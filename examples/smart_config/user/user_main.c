@@ -33,6 +33,8 @@
 #include "espressif/espconn.h"
 #include "espressif/airkiss.h"
 
+#include "i2c_master.h"
+
 #define server_ip "192.168.101.142"
 #define server_port 9669
 
@@ -268,5 +270,7 @@ user_init(void)
     wifi_set_opmode(STATION_MODE);
 
     xTaskCreate(smartconfig_task, "smartconfig_task", 256, NULL, 2, NULL);
+
+
 }
 

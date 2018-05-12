@@ -33,6 +33,8 @@
 extern "C" {
 #endif
 
+
+
 typedef uint8_t  u8_t;
 typedef int8_t   s8_t;
 typedef uint16_t u16_t;
@@ -102,6 +104,7 @@ typedef enum {
 #define ICACHE_RODATA_ATTR  __attribute__((section(".irom.text")))
 
 #ifndef __cplusplus
+
 #define BOOL            bool
 #define TRUE            true
 #define FALSE           false

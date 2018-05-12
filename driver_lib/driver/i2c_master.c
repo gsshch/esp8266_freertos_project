@@ -317,3 +317,69 @@ i2c_master_writeByte(uint8 wrdata)
         i2c_master_wait(5);
     }
 }
+
+
+api_iic i2c = {i2c_master_gpio_init, i2c_master_init, i2c_master_start, i2c_master_stop,
+		i2c_master_writeByte, i2c_master_readByte, i2c_master_send_nack,
+		i2c_master_send_ack, i2c_master_checkAck, i2c_master_getAck,
+		i2c_master_setAck };
+
+void IIC_WriteReg(uint8_t i2c_addr, uint8_t reg_addr, uint8_t reg_data)
+{
+	i2c.i2c_master_start();
+	i2c.i2c_master_writeByte((i2c_addr<<1)|0);
+	i2c.i2c_master_getAck();
+    i2c.i2c_master_writeByte(reg_addr);
+    i2c.i2c_master_getAck();
+    i2c.i2c_master_writeByte(reg_data);
+    i2c.i2c_master_getAck();
+    i2c.i2c_master_stop();
+}
+
+void IIC_ReadData(uint8_t i2c_addr, uint8_t reg_addr, uint8_t *pdata)
+{
+	i2c.i2c_master_start();
+	i2c.i2c_master_writeByte((i2c_addr<<1)|0x00);
+	i2c. i2c_master_getAck();
+	i2c.i2c_master_writeByte(reg_addr);
+	i2c.i2c_master_getAck();
+	i2c.i2c_master_start();
+	i2c.i2c_master_writeByte((i2c_addr<<1)|0x01);
+	i2c.i2c_master_getAck();
+    *pdata=i2c.i2c_master_readByte();
+    i2c.i2c_master_send_ack();
+    i2c.i2c_master_stop();
+}
+
+
+
+int32_t IIC_ReadDataBlock(uint8_t i2c_addr, uint8_t reg_data, uint8_t *pdata, uint32_t count)
+{
+    uint8_t i = 0;
+    uint8_t y = 0;
+    i2c.i2c_master_start();
+    i2c.i2c_master_writeByte((i2c_addr<<1)|0x00);
+    if(i2c.i2c_master_getAck()==-1)
+    {
+    	i2c.i2c_master_stop();
+        return -1;
+    }
+    i2c.i2c_master_writeByte(reg_data);
+    i2c.i2c_master_getAck();
+    i2c.i2c_master_start();
+    i2c.i2c_master_writeByte((i2c_addr<<1)|0x01);
+    i2c.i2c_master_getAck();
+    for(i = 0; i <count; i++)
+    {
+        *pdata=i2c.i2c_master_readByte();
+        if(count==(i+1))
+        	i2c.i2c_master_send_ack(1);
+        else
+        	i2c.i2c_master_send_ack(0);
+        pdata++;
+        y++;
+    }
+    i2c.i2c_master_stop();
+    return y;
+}
+

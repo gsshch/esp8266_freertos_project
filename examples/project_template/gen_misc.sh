@@ -8,8 +8,8 @@ export SDK_PATH=~/git/ESP8266_RTOS_SDK-release-v2.x.x
 export BIN_PATH=~/git/ESP8266_RTOS_SDK-release-v2.x.x/bin
 !
 
-export SDK_PATH=$~/git/ESP8266_RTOS_SDK-release-v2.x.x
-export BIN_PATH=$~/git/ESP8266_RTOS_SDK-release-v2.x.x/bin
+export SDK_PATH=$/home/guo/git/ESP8266_RTOS_SDK-release-v2.x.x
+export BIN_PATH=$/home/guo/git/ESP8266_RTOS_SDK-release-v2.x.x/bin
 
 echo "gen_misc.sh version 20150911"
 echo ""
